@@ -23,18 +23,48 @@ export default function (dependencies) {
       }
     }
 
-    const schemaHasDefault = (object) => {
-      if (typeof object !== 'object') {
+    /**
+     *schemaHasDefault
+     *
+     * @param {object} keyValuePair Key and Value pair of which to check
+     * @returns {boolean} true if property has default
+     */
+    const schemaHasDefault = (keyValuePair) => {
+      if (typeof keyValuePair !== 'object') {
         return false;
       }
 
-      if (typeof (object.default) !== 'undefined') {
+      if (typeof (keyValuePair.default) !== 'undefined') {
         return true;
       }
 
       return false;
     };
 
+    /**
+     *schemaHasRef
+     *
+     * @param {object} keyValuePair Key and Value pair of property to check
+     * @returns {boolean} true if property has a child schema ($ref)
+     */
+    const schemaHasRef = (keyValuePair) => {
+      if (typeof keyValuePair !== 'object') {
+        return false;
+      }
+
+      if (typeof (keyValuePair['$ref']) !== 'undefined') {
+        return true;
+      }
+
+      return false;
+    };
+
+    /**
+     *isValid
+     *
+     * @param {object} currentState Current STATE object
+     * @returns {object} validator object
+     */
     const isValid = (currentState) => {
       return validator.validate(currentState, schema);
     };
@@ -67,7 +97,11 @@ export default function (dependencies) {
           ? state[key]
           : undefined;
       },
-      // Should re-write to include ANY undefined structure to defaults.
+      /**
+       *scaffold
+       *
+       * @returns {object} A scaffolded struct (state)
+       */
       scaffold: () => {
         const validationResult = isValid(state);
 
@@ -75,8 +109,21 @@ export default function (dependencies) {
         //  Important it's 'undefined' properties, as we don't want false positives on
         //  genuinely invalid struct/state against schema.
         validationResult.errors.forEach((error) => {
+          // Validates base schema
           if (typeof state[error.argument] === 'undefined' && schemaHasDefault(schema.properties[error.argument])) {
             state[error.argument] = schema.properties[error.argument].default;
+          }
+          // Validates child schema
+          if (typeof state[error.argument] === 'undefined' && schemaHasRef(schema.properties[error.argument])) {
+            if (typeof validator.schemas[error.argument] !== 'undefined') {
+              let newProperties = {};
+              // Populate an object type..
+              Object.keys(validator.schemas[error.argument].properties).forEach((key) => {
+                newProperties[key] = validator.schemas[error.argument].properties[key].default || 'undefined';
+              });
+
+              state[error.argument] = newProperties;
+            }
           }
         });
 
@@ -85,8 +132,8 @@ export default function (dependencies) {
       /**
        *set
        *
-       * @param {object} keyValuePair - Key and value pair of change
-       * @returns {string undefined} Value if success, or undefined if none.
+       * @param {*} keyValuePair - Key of property, and value to set
+       * @returns {object} state if successful - undefined if failed
        */
       set: (keyValuePair) => {
         if (typeof keyValuePair !== 'object') return undefined;
@@ -120,13 +167,18 @@ export default function (dependencies) {
        *
        * @returns {boolean} true = valid, false = invalid
        */
+      /**
+       *isValid
+       *
+       * @returns {boolean} true or false of valid state
+       */
       isValid: () => {
         return isValid(state).valid;
       },
       /**
        *validate
-       *autoDefaults
-       * @returns {boolean} - True or false if struct conforms to schema
+       *
+       * @returns {object} - validator validation object from JSONSCHEMA
        */
       validate: () => {
         return isValid(state);
