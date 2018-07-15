@@ -53,14 +53,14 @@ it('STRUCT BASE - STRICT - Should allow additional properties', () => {
   expect(Object.keys(basicStruct.get()[basicSchema.id]).length).toEqual(Object.keys(basicSchema.properties).length);
   expect(typeof basicStruct.set({ [key]: value })).toEqual(typeof value);
   expect(Object.keys(basicStruct.get()[basicSchema.id]).length).toEqual(Object.keys(basicSchema.properties).length + 1);
-  expect(basicStruct.isValid).toBeTruthy();
+  expect(basicStruct.isValid()).toBeTruthy();
 });
 
 // In this test case, we inject a child schema (which may be recursive).
 const advancedSchema = {
   'id': '/AdvancedSchema',
   'type': 'object',
-  'additionalProperties': true,
+  'additionalProperties': false,
   'properties': {
     'array': { 'default': array(), 'type': 'array' },
     'boolean': { 'default': boolean(), 'type': 'boolean' },
@@ -117,11 +117,11 @@ it('ADVANCED STRUCT - Set should allow updating a variable', () => {
   expect(advancedStruct.get('integer')).toEqual(value);
 });
 
-it('STRUCT BASE - STRICT - Should allow additional properties', () => {
+it('STRUCT BASE - STRICT - Should NOT allow additional properties', () => {
   const key = string();
   const value = string();
   expect(Object.keys(advancedStruct.get()[advancedSchema.id]).length).toEqual(Object.keys(advancedSchema.properties).length);
-  expect(typeof advancedStruct.set({ [key]: value })).toEqual(typeof value);
-  expect(Object.keys(advancedStruct.get()[advancedSchema.id]).length).toEqual(Object.keys(advancedSchema.properties).length + 1);
-  expect(advancedStruct.isValid).toBeTruthy();
+  expect(typeof advancedStruct.set({ [key]: value })).toEqual('undefined');
+  expect(Object.keys(advancedStruct.get()[advancedSchema.id]).length).toEqual(Object.keys(advancedSchema.properties).length);
+  expect(advancedStruct.isValid()).toBeTruthy();
 });
