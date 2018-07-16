@@ -150,17 +150,11 @@ export default function (dependencies) {
 
         if (result.valid) {
           state[key] = value;
-          // Update our meta stat (if it exists).
-          //  This is a bit of a conditional hell - need better way...
-          //  Maybe some kind of middleware like wrapper that detects
-          //  state change and updates meta if relevant? Hmmmmmmmmmmmm
-          if (state['/Meta'] && state['/Meta'].stat && state['/Meta'].stat.updated_at) {
-            state['/Meta'].stat.updated_at = new Date().toISOString();
-          }
+
           return value;
-        } else {
-          return undefined;
         }
+
+        return undefined;
       },
       /**
        *isValid - Returns boolean result (valid) of schema validation.
