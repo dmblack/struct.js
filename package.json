@@ -1,4 +1,29 @@
 {
+  "name": "struct",
+  "description": "Structure, Struct, or 'struct.js' is designed to help define, from design; structured data.",
+  "version": "0.0.1",
+  "main": "build/Release/index.js",
+  "scripts": {
+    "build": "./node_modules/.bin/babel  ./src --experimental --source-maps-inline --exclude *.test.js -o ./build/Release/index.js",
+    "lint": "eslint src/",
+    "test": "cross-env NODE_ENV=test jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dmblack/struct.js.git"
+  },
+  "keywords": [
+    "struct",
+    "data",
+    "jsonschema",
+    "json",
+    "structure"
+  ],
+  "author": "Dustyn Blackmore",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dmblack/struct.js/issues"
+  },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
@@ -8,5 +33,6 @@
     "eslint": "^5.1.0",
     "jest": "^23.4.0",
     "jsonschema": "^1.2.4"
-  }
+  },
+  "homepage": "https://github.com/dmblack/struct.js#readme"
 }
