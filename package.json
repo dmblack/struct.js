@@ -2,7 +2,7 @@
   "name": "struct.js",
   "description": "Structure, Struct, or 'struct.js' is designed to help define, from design; structured data.",
   "version": "0.0.1",
-  "main": "build/Release/index.js",
+  "main": "lib/index.js",
   "scripts": {
     "build": "./node_modules/.bin/babel  ./src --experimental --source-maps-inline --exclude *.test.js -o ./build/Release/index.js",
     "lint": "eslint src/",
