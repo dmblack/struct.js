@@ -46,14 +46,18 @@ homepage**
 
 # How To
 ## Install
-With npm or yarn
+Due to name conflicts, I have not been able to publish this package to 
+npm.
 
-`$ npm install struct.js`
+The remaining method is to include the package from github. I understand
+if you chose not to use this module for that very reason - however; This
+module was born out of need due to work on another project. The parent
+project has my attention at the moment.
 
-`$ yarn add struct.js`
+`$ npm install https://github.com/dmblack/struct.js.git`
 
 ## Include in your project
-`import { struct } from struct;`
+`import { struct } from struct.js;`
 
 ## Basic Use
 Ensure you have your jsonschema installed, and imported;
@@ -81,7 +85,8 @@ const schema = {
 
 Create a factory that allows building structures.
 ```js
-const struct = require('./struct.js').default(Object.assign({}, dependencies, { 'schema': schema }));
+const structure = struct(Object.assign({}, dependencies, { 'schema': schema }));
 ```
 
-
+**Due to changes in deployment method, naming conflicts on npm, my setup
+procedure may be minorly incomplete. Reasons, again; explained above.**
