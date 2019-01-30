@@ -66,6 +66,7 @@ export default function (dependencies) {
      * @returns {object} validator object
      */
     const isValid = (currentState) => {
+      // Leverages https://github.com/tdegrunt/jsonschema/blob/master/lib/validator.js
       return validator.validate(currentState, schema);
     };
 
@@ -130,7 +131,11 @@ export default function (dependencies) {
               let newProperties = {};
               // Populate an object type..
               Object.keys(validator.schemas[error.argument].properties).forEach((key) => {
-                newProperties[key] = validator.schemas[error.argument].properties[key].default || 'undefined';
+                // Now properly handles integer/number type 0
+                //  which was previously a falseley failure.
+                newProperties[key] = typeof validator.schemas[error.argument].properties[key].default !== 'undefined'
+                  ? validator.schemas[error.argument].properties[key].default
+                  : 'undefined'
               });
 
               state[error.argument] = newProperties;
@@ -167,11 +172,6 @@ export default function (dependencies) {
 
         return undefined;
       },
-      /**
-       *isValid - Returns boolean result (valid) of schema validation.
-       *
-       * @returns {boolean} true = valid, false = invalid
-       */
       /**
        *isValid
        *
