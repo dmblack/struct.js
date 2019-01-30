@@ -1,7 +1,3 @@
 {
-  "presets": ["es2015", "env"],
-  "ignore": [
-    "**/*.test.js",
-    "**/setupTests*"
-  ]
+  "presets": ["env"]
 }

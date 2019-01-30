@@ -69,6 +69,17 @@ export default function (dependencies) {
       return validator.validate(currentState, schema);
     };
 
+    // async function isValid (currentState) {
+    //   const result = await validateWithPromise(currentState, schema);
+    //   return result;
+    // };
+
+    // const validateWithPromise = (currentState) => {
+    //   return new Promise((resolve, reject) => {
+    //     resolve(validator.validate(currentState, schema));
+    //   })
+    // }
+
     return (state) => ({
       /**
        *describe
@@ -103,12 +114,12 @@ export default function (dependencies) {
        * @returns {object} A scaffolded struct (state)
        */
       scaffold: () => {
-        const validationResult = isValid(state);
+        // const validationResult = isValid(state);
 
         // Scaffold out our object, comparing undefined properties with schema defaults
         //  Important it's 'undefined' properties, as we don't want false positives on
         //  genuinely invalid struct/state against schema.
-        validationResult.errors.forEach((error) => {
+        isValid(state).errors.forEach((error) => {
           // Validates base schema
           if (typeof state[error.argument] === 'undefined' && schemaHasDefault(schema.properties[error.argument])) {
             state[error.argument] = schema.properties[error.argument].default;
