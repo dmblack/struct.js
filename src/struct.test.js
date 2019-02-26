@@ -62,11 +62,11 @@ const advancedSchema = {
   'type': 'object',
   'additionalProperties': false,
   'properties': {
-    'array': { 'default': array(), 'type': 'array' },
-    'boolean': { 'default': boolean(), 'type': 'boolean' },
-    'date': { 'default': date(), 'type': 'string', 'format': 'date-time' },
-    'integer': { 'default': integer(), 'type': 'integer' },
-    'string': { 'default': string(), 'type': 'string' },
+    'array'  : { 'default': array  (), 'type': 'array'                          },
+    'boolean': { 'default': boolean(), 'type': 'boolean'                        },
+    'date'   : { 'default': date   (), 'type': 'string' , 'format': 'date-time' },
+    'integer': { 'default': integer(), 'type': 'integer'                        },
+    'string' : { 'default': string (), 'type': 'string'                         },
     '/AdvancedChildSchema': {
       '$ref': '/AdvancedChildSchema'
     }
@@ -77,10 +77,10 @@ const advancedSchema = {
 const advancedChildSchema = {
   'id': '/AdvancedChildSchema',
   'properties': {
-    'created_at': { 'default': date(), 'type': 'string', 'format': 'date-time' },
-    'created_by': { 'default': integer(), 'type': 'integer' },
-    'updated_at': { 'default': date(), 'type': 'string', 'format': 'date-time' },
-    'updated_by': { 'default': integer(), 'type': 'integer' }
+    'created_at': { 'default': date   (), 'type': 'string' , 'format': 'date-time' },
+    'created_by': { 'default': integer(), 'type': 'integer'                        },
+    'updated_at': { 'default': date   (), 'type': 'string' , 'format': 'date-time' },
+    'updated_by': { 'default': integer(), 'type': 'integer'                        }
   },
   'required': ['created_at', 'created_by', 'updated_at', 'updated_by']
 };
