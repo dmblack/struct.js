@@ -4,9 +4,9 @@
   "version": "0.0.1",
   "main": "lib/index.js",
   "scripts": {
-    "build": "./node_modules/.bin/babel  ./src --experimental --source-maps-inline --exclude *.test.js -o ./build/Release/index.js",
+    "build": "npx babel src --out-file lib/index.js --ignore '**/*.test.js','**/*Tests.js' --experimental --source-maps-inline",
     "lint": "eslint src/",
-    "publish": "./node_modules/.bin/babel  ./src --experimental --source-maps-inline --exclude *.test.js -o ./lib/index.js",
+    "publish": "npx babel src --out-file lib/index.js --ignore '**/*.test.js','**/*Tests.js' --experimental --source-maps-inline",
     "test": "cross-env NODE_ENV=test jest"
   },
   "repository": {
