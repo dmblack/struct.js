@@ -69,17 +69,17 @@ Ensure you have your jsonschema installed, and imported;
 Define one, or more, jsonschema compliant schema.
 ```js
 const schema = {
-  'id': '/TestSchema',
-  'type': 'object',
-  'additionalProperties': true,
-  'properties': {
-    'array': { 'default': [1, 2, 3, 4], 'type': 'array' },
-    'boolean': { 'default': true, 'type': 'boolean' },
-    'date': { 'default': new Date().toISOString(), 'type': 'string', 'format': 'date-time' },
-    'integer': { 'default': 0, 'type': 'integer' },
-    'string': { 'default': 'abc', 'type': 'string' }
+  "id": "/TestSchema",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "array": { "default": [1, 2, 3, 4], "type": "array" },
+    "boolean": { "default": true, "type": "boolean" },
+    "date": { "default": new Date().toISOString(), "type": "string", "format": "date-time" },
+    "integer": { "default": 0, "type": "integer" },
+    "string": { "default": "abc", "type": "string" }
   },
-  'required': ['array', 'boolean', 'date', 'integer', 'string']
+  "required": ["array", "boolean", "date", "integer", "string"]
 };
 ```
 
