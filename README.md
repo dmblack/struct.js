@@ -85,7 +85,7 @@ const schema = {
 
 Create a factory that allows building structures.
 ```js
-const structure = struct(Object.assign({}, dependencies, { 'schema': schema }));
+const structure = struct(Object.assign({}, { 'jsonschema': jsonschema }, { 'schema': schema }));
 ```
 
 **Due to changes in deployment method, naming conflicts on npm, my setup
