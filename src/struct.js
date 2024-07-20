@@ -8,7 +8,7 @@
  * @param {*} dependencies
  * @returns
  */
-export default function (dependencies) {
+const Struct = (dependencies) => {
   if (Object.keys(dependencies).includes('jsonschema') && Object.keys(dependencies).includes('schema')) {
     const schema = dependencies.schema;
     const validator = new dependencies.jsonschema.Validator();
@@ -193,3 +193,8 @@ export default function (dependencies) {
     return false;
   }
 }
+
+module.exports = exports = Struct;
+module.exports.Struct = Struct;
+
+export default Struct;

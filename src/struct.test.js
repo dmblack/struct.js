@@ -1,6 +1,8 @@
 /* global expect it */
 import { dependencies, array, boolean, date, integer, string } from './setupTests';
 
+import { Struct as struct } from './struct.js';
+
 const basicSchema = {
   'id': '/TestSchema',
   'type': 'object',
@@ -15,7 +17,7 @@ const basicSchema = {
   'required': ['array', 'boolean', 'date', 'integer', 'string']
 };
 
-const basStruct = require('./struct.js').default(Object.assign({}, dependencies, { 'schema': basicSchema }));
+const basStruct = struct(Object.assign({}, dependencies, { 'schema': basicSchema }));
 
 const basicStruct = basStruct({});
 
@@ -85,7 +87,7 @@ const advancedChildSchema = {
   'required': ['created_at', 'created_by', 'updated_at', 'updated_by']
 };
 
-const advStruct = require('./struct.js').default(Object.assign({}, dependencies, { 'schema': advancedSchema }, { 'additionalSchema': advancedChildSchema }));
+const advStruct = struct(Object.assign({}, dependencies, { 'schema': advancedSchema }, { 'additionalSchema': advancedChildSchema }));
 
 const advancedStruct = advStruct({});
 
